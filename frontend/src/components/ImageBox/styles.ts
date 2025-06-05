@@ -15,7 +15,7 @@ export const Container = styled.div`
 export const ImageContainer = styled.img`
     flex: 1;
     border-radius: 1rem 0 0 1rem ;
-    opacity: 0.6;
+    
 `
 export const Forms = styled.div`
     flex: 1;
