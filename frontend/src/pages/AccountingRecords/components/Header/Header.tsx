@@ -1,12 +1,21 @@
-import { Container, Title, Text, TextContainer } from "./styles";
+import {
+  HeaderContainer,
+  Title,
+  Text,
+  TextContainer,
+  SuricatoImage,
+  LogOutButton,
+} from "./styles";
 
 export function Header() {
   return (
-    <Container>
+    <HeaderContainer>
+      <SuricatoImage src="suricatin.png" alt="Suricato Logo" />
       <TextContainer>
-        <Title>Pagamentos</Title>
-        <Text> Visualize aqui os dados de pagamento da empresa</Text>
+        <Title>ContAI</Title>
+        <Text> Visualize aqui os lançamentos</Text>
       </TextContainer>
-    </Container>
+      <LogOutButton />
+    </HeaderContainer>
   );
 }

@@ -20,6 +20,7 @@ export class RegisterUser {
 
         if (userExist) {
             throw new Error("User already exists.")
+
         }
 
         const hashPassword = await hash(password, 10)

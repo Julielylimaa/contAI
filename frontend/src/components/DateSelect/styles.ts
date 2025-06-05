@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import theme from "../../styles/theme";
-import { FaFilter } from "react-icons/fa";
+import { Funnel } from "lucide-react";
 
 export const Container = styled.div`
     display: flex;
@@ -10,11 +10,11 @@ export const Container = styled.div`
 `
 export const MonthYearInput = styled.select`
     padding: 8px;
-    border: 1px solid ${theme.COLORS.GREEN};
+    border: 1px solid ${theme.COLORS.PURPLE};
     border-radius: 4px;
     width: 100px;
     text-align: end;
-    color: ${theme.COLORS.GREEN};
+    color: ${theme.COLORS.PURPLE};
     cursor: pointer;
     appearance: none;
     -webkit-appearance: none;
@@ -24,10 +24,10 @@ export const MonthYearInput = styled.select`
   }
 `
 
-export const Icon = styled(FaFilter)`
+export const FunnelIcon = styled(Funnel)`
   position: absolute;
+  color: ${theme.COLORS.PURPLE};
   width: 20px;
   padding-left: 0.4rem;
-  pointer-events: none;
   
 `;

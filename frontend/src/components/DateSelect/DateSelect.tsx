@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { Container, Icon, MonthYearInput } from "./styles";
+import { Container, FunnelIcon, MonthYearInput } from "./styles";
 
 interface Props {
   id: string;
@@ -11,7 +11,7 @@ interface Props {
 export const DateSelect = ({ id, value, onChange, children }: Props) => {
   return (
     <Container>
-      <Icon />
+      <FunnelIcon />
       <MonthYearInput id={id} value={value} onChange={onChange}>
         {children}
       </MonthYearInput>

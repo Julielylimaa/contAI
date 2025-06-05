@@ -19,6 +19,7 @@ export const AccountingRecords = () => {
   const [totalCredit, setTotalCredit] = useState<number>(0);
   const [totalDebit, setTotalDebit] = useState<number>(0);
   const [totalEntries, setTotalEntries] = useState<number>(0);
+  const [totalBalance, setTotalBalance] = useState<number>(0);
 
   const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 8;
@@ -37,12 +38,13 @@ export const AccountingRecords = () => {
         navigate("/");
       }
       if (accountingRecords) {
-        const { entries, totalCredit, totalDebit, totalEntries } =
+        const { entries, totalCredit, totalDebit, totalBalance, totalEntries } =
           accountingRecords;
         setTotalEntries(totalEntries);
         setEntries(entries);
         setTotalCredit(totalCredit);
         setTotalDebit(totalDebit);
+        setTotalBalance(totalBalance);
       }
     } catch (error) {
       console.error("Erro ao buscar dados:", error);
@@ -60,6 +62,7 @@ export const AccountingRecords = () => {
         entries={entries}
         totalCredit={totalCredit}
         totalDebit={totalDebit}
+        totalBalance={totalBalance}
         totalEntries={totalEntries}
         month={month}
         year={year}

@@ -3,7 +3,7 @@ import theme from "../../styles/theme";
 import * as Dialog from "@radix-ui/react-dialog";
 
 export const AddButton = styled.button`
-    background-color: ${theme.COLORS.GREEN};
+    background-color: ${theme.COLORS.PURPLE};
     border: 1px solid transparent;
     color: ${theme.COLORS.WHITE};
     padding: 1rem;
@@ -13,7 +13,7 @@ export const AddButton = styled.button`
     cursor: pointer;
 
     &:hover{
-        background-color: ${theme.COLORS.LIGHT_GREEN};
+        background-color: ${theme.COLORS.LIGHT_PURPLE};
     }
 `
 

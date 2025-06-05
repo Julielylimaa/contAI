@@ -1,5 +1,6 @@
 import {
-  Container,
+  TableContainer,
+  CreditIcon,
   DateBtnContainer,
   Message,
   MessageContainer,
@@ -12,6 +13,7 @@ import {
   TotalBoxContainer,
   Tr,
   ValueHighLight,
+  DebitIcon,
 } from "./styles";
 
 import { TotalBox } from "../../../../components/TotalBox/TotalBox";
@@ -26,6 +28,7 @@ interface RecordTableProps {
   entries: Entries[];
   totalCredit: number;
   totalDebit: number;
+  totalBalance: number;
   totalEntries: number;
   month: string;
   year: number;
@@ -41,6 +44,7 @@ export const RecordsTable = ({
   entries,
   totalCredit,
   totalDebit,
+  totalBalance,
   totalEntries,
   month,
   year,
@@ -54,10 +58,15 @@ export const RecordsTable = ({
   const currentYear = new Date().getFullYear();
 
   return (
-    <Container>
+    <TableContainer>
       <TotalBoxContainer>
-        <TotalBox title="Crédito" total={totalCredit || 0}></TotalBox>
-        <TotalBox title="Débito" total={totalDebit || 0}></TotalBox>
+        <TotalBox title="Crédito" total={totalCredit || 0}>
+          <CreditIcon />
+        </TotalBox>
+        <TotalBox title="Débito" total={totalDebit || 0}>
+          <DebitIcon />
+        </TotalBox>
+        <TotalBox title="Saldo" total={totalBalance || 0}></TotalBox>
       </TotalBoxContainer>
 
       <DateBtnContainer>
@@ -128,6 +137,6 @@ export const RecordsTable = ({
           />
         </>
       )}
-    </Container>
+    </TableContainer>
   );
 };

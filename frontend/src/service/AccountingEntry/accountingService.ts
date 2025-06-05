@@ -7,6 +7,7 @@ interface GetAccountingRecordsResult {
     entries: Entries[];
     totalCredit: number;
     totalDebit: number;
+    totalBalance: number;
     totalEntries: number;
 }
 export const getAccountingRecords = async (date: string,
@@ -25,10 +26,14 @@ export const getAccountingRecords = async (date: string,
         const totalCredit: number = resp.data.totalCreditValue
         const totalDebit: number = resp.data.totalDebitValue
         const totalEntries: number = resp.data.totalEntriesCount
+        const totalBalance: number = resp.data.totalBalance
 
-        return { entries, totalCredit, totalDebit, totalEntries }
+
+        return { entries, totalCredit, totalDebit, totalBalance, totalEntries }
+
     } catch (err) {
         console.log(err)
+
         return null;
     }
 }

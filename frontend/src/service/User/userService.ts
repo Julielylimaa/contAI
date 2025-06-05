@@ -18,17 +18,19 @@ export const handleLogin = async (email: string, password: string) => {
 
 export const handleRegister = async (name: string, email: string, password: string) => {
     try {
-        await api
-            .post("user/", {
-                name,
-                email,
-                password,
-            })
-            .then((resp) => {
-                localStorage.setItem("token", resp.data.token);
-            });
+        const resp = await api.post("user/", {
+            name,
+            email,
+            password,
+        });
+        if (resp.status === 201) {
+            alert("Usuário cadastrado com sucesso!");
+            return true;
+        }
+
     } catch (err) {
-        alert("Ocorreu um erro!")
-        console.log(err);
+        alert("Ocorreu um erro! " + err);
+        return err
+
     }
 }

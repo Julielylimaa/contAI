@@ -1,28 +1,58 @@
 import styled from "styled-components";
 import theme from "../../../../styles/theme";
-export const Container = styled.div`
+import { LogOut } from "lucide-react";
+
+
+export const HeaderContainer = styled.div`
     position: fixed;
-    align-items: flex-start;
-    justify-content: center;
-    width: 100vw;
-    height: 5rem;
-    background-color:${theme.COLORS.GREEN};
+    top: 0;
+    width: 100%;
+    height: 6rem;
+    background-color: ${({ theme }) => theme.COLORS.PURPLE};
+    display: flex;
+    align-items: center;
+    padding: 0 2rem;
+    gap: 1rem;
 `
+
+
+export const SuricatoImage = styled.img`
+    height: 6rem;
+    width: auto;
+`
+
+
 export const TextContainer = styled.div`
     display: flex;
     flex-direction: column;
-    width: 40%;
-    min-width: 300px;
-    padding-top: 0.5rem;
-    padding-left: 2rem;
+    justify-content: center;
 `
 export const Title = styled.text`
-    padding-bottom: 0.5rem;
+
     color: ${theme.COLORS.WHITE};
     font-size:${theme.FONT_SIZE.LG};
-`
+    font-weight:700;
+    `
 
 export const Text = styled.text`
-    color: ${theme.COLORS.WHITE};
+    color: ${theme.COLORS.DARK_PURPLE};
     font-size:${theme.FONT_SIZE.MD};
+`
+
+export const LogOutButton = styled(LogOut)`
+    display: flex;
+    width: 2rem;
+    height: 2rem;
+    margin-left: auto;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;    
+    color: ${theme.COLORS.DARK_PURPLE};
+
+    &:hover {
+        cursor: pointer;
+        color: ${theme.COLORS.LIGHT_PURPLE};
+    }
+
+    
 `
