@@ -20,6 +20,7 @@ import { DateSelect } from "../../../../components/DateSelect/DateSelect";
 import { Pagination } from "../../../../components/Pagination/Pagination";
 import { Entries } from "../../../../domain/types/entries";
 import { months } from "../../../../domain/constants/months";
+import { formatDate } from "../../../../utils/formatDate";
 
 interface RecordTableProps {
   entries: Entries[];
@@ -107,7 +108,7 @@ export const RecordsTable = ({
             <TBody>
               {entries.map((entry) => (
                 <Tr key={entry.id}>
-                  <Td>{new Date(entry.date).toLocaleDateString("pt-BR")}</Td>
+                  <Td>{formatDate(entry.date)}</Td>
                   <Td>{entry.description}</Td>
                   <Td>
                     <ValueHighLight variant={entry.type}>

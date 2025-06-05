@@ -1,6 +1,8 @@
 import { AccountingEntryType } from "@prisma/client";
 import { prisma } from "../../prisma/prismaClient";
+import { format } from "date-fns";
 import { response } from "express";
+import { formatDate } from "../utils/DateFormat";
 
 interface IAccountingEntry {
     date: Date,
@@ -17,8 +19,8 @@ export class CreateAccountingEntry {
             return response.status(400).json({ error: "User ID is required." });
         }
 
-        const [day, month, year] = date.toString().split('/');
-        const formattedDate = new Date(`${year}-${month}-${day}`);
+        const formattedDate = formatDate(date)
+
         const accountingEntry = await prisma.accountingEntry.create({
             data: {
                 date: formattedDate,

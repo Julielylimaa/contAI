@@ -36,6 +36,7 @@ export class FindAccountingEntries {
 
         const totalCreditValue = groupEntriesByType.find(group => group.type === 'Credit')?._sum.value || 0
         const totalDebitValue = groupEntriesByType.find(group => group.type === 'Debit')?._sum.value || 0
+        const balance = totalCreditValue - totalDebitValue
 
         const entries = await prisma.accountingEntry.findMany({
             where: {
@@ -56,6 +57,6 @@ export class FindAccountingEntries {
 
 
 
-        return { entries, totalCreditValue, totalDebitValue, totalEntriesCount }
+        return { entries, totalCreditValue, totalDebitValue, totalEntriesCount, balance }
     }
 }
