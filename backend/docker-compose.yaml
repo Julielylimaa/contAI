@@ -1,0 +1,17 @@
+version: "3.7"
+
+volumes:
+  template_database_vol:
+
+services:
+  template_database:
+    image: postgres:14-alpine
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=db
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=root
+    volumes:
+      - template_database_vol:/var/lib/postgresql/data

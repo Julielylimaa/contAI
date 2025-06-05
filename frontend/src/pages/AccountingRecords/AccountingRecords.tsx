@@ -1,0 +1,75 @@
+import { useEffect, useState } from "react";
+import { Header } from "./components/Header/Header";
+import { RecordsTable } from "./components/Table/RecordsTable";
+import { Container } from "./styles";
+import { getAccountingRecords } from "../../service/AccountingEntry/accountingService";
+
+import { useNavigate } from "react-router";
+import { months } from "../../domain/constants/months";
+import { Entries } from "../../domain/types/entries";
+
+export const AccountingRecords = () => {
+  const currentYear = new Date().getFullYear();
+  const currentMonth = new Date().getMonth();
+
+  const [month, setMonth] = useState(months[currentMonth]);
+  const [year, setYear] = useState(currentYear);
+
+  const [entries, setEntries] = useState<Entries[]>([]);
+  const [totalCredit, setTotalCredit] = useState<number>(0);
+  const [totalDebit, setTotalDebit] = useState<number>(0);
+  const [totalEntries, setTotalEntries] = useState<number>(0);
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const pageSize = 8;
+  const navigate = useNavigate();
+
+  const date = `${months.indexOf(month) + 1} - ${year}`;
+
+  const fetchData = async () => {
+    try {
+      const accountingRecords = await getAccountingRecords(
+        date,
+        currentPage,
+        pageSize
+      );
+      if (!accountingRecords) {
+        navigate("/");
+      }
+      if (accountingRecords) {
+        const { entries, totalCredit, totalDebit, totalEntries } =
+          accountingRecords;
+        setTotalEntries(totalEntries);
+        setEntries(entries);
+        setTotalCredit(totalCredit);
+        setTotalDebit(totalDebit);
+      }
+    } catch (error) {
+      console.error("Erro ao buscar dados:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, [month, year, currentPage]);
+
+  return (
+    <Container>
+      <Header />
+      <RecordsTable
+        entries={entries}
+        totalCredit={totalCredit}
+        totalDebit={totalDebit}
+        totalEntries={totalEntries}
+        month={month}
+        year={year}
+        currentPage={currentPage}
+        pageSize={pageSize}
+        setMonth={setMonth}
+        setYear={setYear}
+        setCurrentPage={setCurrentPage}
+        fetchData={fetchData}
+      />
+    </Container>
+  );
+};
