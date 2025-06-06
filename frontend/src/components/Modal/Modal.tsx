@@ -13,6 +13,7 @@ import { Button } from "../Button/Button";
 import { IoIosClose } from "react-icons/io";
 import { typeOfEntry } from "../../utils/typeOfEntry";
 import { CreateEntry, UpdateEntry } from "../../domain/types/entries";
+import { maskCurrency } from "../../utils/currency";
 
 interface ModalProps {
   submit: () => void;
@@ -51,16 +52,6 @@ export const Modal = ({
 
   const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setType(event.target.value === "Crédito" ? "Credit" : "Debit");
-  };
-
-  const maskCurrency = (valueInput: string) => {
-    valueInput = valueInput.replace(/[^\d,-]/g, "");
-    const numericValue = (parseFloat(valueInput) / 100)
-      .toFixed(2)
-      .replace(",", ".");
-    setValue(parseFloat(numericValue));
-    valueInput = `R$ ${numericValue}`;
-    return valueInput;
   };
 
   const handleCreate = async () => {
@@ -178,11 +169,14 @@ export const Modal = ({
                 id="date"
                 value={valueString}
                 onChange={(e) => {
-                  setValueString(maskCurrency(e.target.value));
+                  setValueString(maskCurrency(e.target.value, setValue));
                 }}
               />
 
-              <Button text={entryToEdit ? "Editar" : "Adicionar"} />
+              <Button
+                isDisabled={value === 0}
+                text={entryToEdit ? "Editar" : "Adicionar"}
+              />
             </Form>
           </Content>
         </Dialog.Portal>

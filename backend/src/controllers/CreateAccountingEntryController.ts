@@ -10,8 +10,8 @@ export class CreateAccountingEntryController {
         const createAccountingEntry = new CreateAccountingEntry()
 
 
-        if (value < 0) {
-            throw new Error("Negative numbers are not allowed.")
+        if (value <= 0) {
+            throw new Error("Invalid value!")
         }
         const entry = await createAccountingEntry.execute({
             date,

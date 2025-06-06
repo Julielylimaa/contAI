@@ -24,12 +24,14 @@ export const handleRegister = async (name: string, email: string, password: stri
             password,
         });
         if (resp.status === 201) {
-            alert("Usuário cadastrado com sucesso!");
+
             return true;
         }
 
+        alert("Usuário cadastrado com sucesso!");
+
     } catch (err) {
-        alert("Ocorreu um erro! " + err);
+        alert("Ocorreu um erro! ");
         return err
 
     }

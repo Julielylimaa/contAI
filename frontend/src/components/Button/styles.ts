@@ -16,7 +16,14 @@ export const Btn = styled.button`
     border-radius: 2px; 
     font-size: ${theme.FONT_SIZE.MD};
     cursor: pointer;
+    
     &:hover{
         background-color: ${theme.COLORS.LIGHT_PURPLE};
     }
+
+    &:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+
 `

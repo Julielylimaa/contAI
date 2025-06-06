@@ -11,8 +11,8 @@ export class UpdateAccountingEntryController {
             throw new Error("ID is required.");
         }
 
-        if (value < 0) {
-            throw new Error("Negative numbers are not allowed.");
+        if (value <= 0) {
+            throw new Error("Invalid number!");
         }
 
         const updateAccountingEntryService = new UpdateAccountingEntryService();

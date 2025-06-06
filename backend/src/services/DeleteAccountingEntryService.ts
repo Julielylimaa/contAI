@@ -16,7 +16,7 @@ export class DeleteAccountingEntryService {
 
 
 
-        const deleteEntry = await prisma.accountingEntry.delete({
+        await prisma.accountingEntry.delete({
             where: { id }
         });
 
