@@ -21,5 +21,6 @@ export class DeleteAccountingEntryService {
         });
 
         return { message: "Accounting entry deleted successfully." };
+
     }
 }
