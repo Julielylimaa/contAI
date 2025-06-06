@@ -14,6 +14,8 @@ import {
   Tr,
   ValueHighLight,
   DebitIcon,
+  EditIcon,
+  DeleteIcon,
 } from "./styles";
 
 import { TotalBox } from "../../../../components/TotalBox/TotalBox";
@@ -56,6 +58,14 @@ export const RecordsTable = ({
   fetchData,
 }: RecordTableProps) => {
   const currentYear = new Date().getFullYear();
+
+  const typeOfEntry = (type: string) => {
+    if (type === "Credit") {
+      return "Crédito";
+    } else if (type === "Debit") {
+      return "Débito";
+    }
+  };
 
   return (
     <TableContainer>
@@ -112,6 +122,7 @@ export const RecordsTable = ({
                 <Th>Descrição</Th>
                 <Th>Valor</Th>
                 <Th>Tipo</Th>
+                <Th></Th>
               </Tr>
             </THead>
             <TBody>
@@ -124,7 +135,12 @@ export const RecordsTable = ({
                       R$ {entry.value.toFixed(2)}
                     </ValueHighLight>
                   </Td>
-                  <Td>{entry.type}</Td>
+
+                  <Td>{typeOfEntry(entry.type)}</Td>
+                  <Td>
+                    <EditIcon />
+                    <DeleteIcon />
+                  </Td>
                 </Tr>
               ))}
             </TBody>

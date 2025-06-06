@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import theme from "../../../../styles/theme";
-import { TrendingDown, TrendingUp } from "lucide-react";
+import { Pencil, Trash2, TrendingDown, TrendingUp } from "lucide-react";
 
 export const TableContainer = styled.div`
     width: 70%;
@@ -16,12 +16,32 @@ export const TotalBoxContainer = styled.div`
 
 export const CreditIcon = styled(TrendingUp)`
   width: 50px;
-  
   color: #22c55e; 
 `;
 export const DebitIcon = styled(TrendingDown)`
   width: 50px;
   color: #ff0000; 
+`;
+
+export const EditIcon = styled(Pencil)`
+  width: 15px;
+  color:${theme.COLORS.DARK_PURPLE}; 
+  margin-right: 2rem;
+
+  &:hover{
+    cursor: pointer;
+    color: ${theme.COLORS.LIGHT_PURPLE};
+  }
+  
+`
+
+export const DeleteIcon = styled(Trash2)`
+  width: 15px;
+  color:${theme.COLORS.DARK_PURPLE}; 
+  &:hover{
+    cursor: pointer;
+    color: ${theme.COLORS.LIGHT_PURPLE};
+  }
 `;
 export const DateBtnContainer = styled.div`
     display: flex;

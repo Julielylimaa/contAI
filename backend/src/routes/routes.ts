@@ -13,12 +13,12 @@ const createAccountingEntryController = new CreateAccountingEntryController()
 const findAccountingEntriesController = new FindAccountingEntriesController()
 const updateAccountingEntryController = new UpdateAccountingEntryController()
 
-routes.post("/user/", registerUserController.handle)
+routes.post("/user", registerUserController.handle)
 routes.post("/login", authenticateUserController.handle)
 
 
 routes.use(checkAuthenticate)
-routes.post("/accounting/", createAccountingEntryController.handle)
+routes.post("/accounting", createAccountingEntryController.handle)
 routes.get("/accounting", findAccountingEntriesController.handle)
 routes.put("/accounting/:id", updateAccountingEntryController.handle)
 

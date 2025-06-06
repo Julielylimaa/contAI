@@ -41,7 +41,7 @@ export const getAccountingRecords = async (date: string,
 export const handleNewEntry = async (date: string, description: string, value: number, type: "Credit" | "Debit") => {
     try {
         await api
-            .post("accounting/", {
+            .post("accounting", {
                 date,
                 description,
                 value,
@@ -58,3 +58,6 @@ export const handleNewEntry = async (date: string, description: string, value: n
         console.log(err);
     }
 }
+
+
+// export const updateRecord = async()

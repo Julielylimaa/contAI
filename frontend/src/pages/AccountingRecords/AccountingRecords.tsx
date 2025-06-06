@@ -4,7 +4,6 @@ import { RecordsTable } from "./components/Table/RecordsTable";
 import { Container } from "./styles";
 import { getAccountingRecords } from "../../service/AccountingEntry/accountingService";
 
-import { useNavigate } from "react-router";
 import { months } from "../../domain/constants/months";
 import { Entries } from "../../domain/types/entries";
 
@@ -23,7 +22,6 @@ export const AccountingRecords = () => {
 
   const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 8;
-  const navigate = useNavigate();
 
   const date = `${months.indexOf(month) + 1} - ${year}`;
 
@@ -34,9 +32,7 @@ export const AccountingRecords = () => {
         currentPage,
         pageSize
       );
-      if (!accountingRecords) {
-        navigate("/");
-      }
+
       if (accountingRecords) {
         const { entries, totalCredit, totalDebit, totalBalance, totalEntries } =
           accountingRecords;

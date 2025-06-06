@@ -8,7 +8,7 @@ export default {
         RED: "#CC3750",
         LIGHT_RED: "#E5C5CF",
         LIGHT_PURPLE: "#A68CF0",
-        LIGHT_GREEN_2: "#E1F5EC",
+        LIGHT_GREEN: "#2E8B57",
         BLACK: "#000000",
         VERY_DARK_GRAY: "#1A1A1A",
         CHARCOAL_GRAY: "#2F2F2F",
