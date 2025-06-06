@@ -21,7 +21,6 @@ export class UpdateAccountingEntryController {
 
         const updatedEntry = await updateAccountingEntryService.execute(id, {
             date,
-            userId,
             description,
             value,
             type

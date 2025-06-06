@@ -71,6 +71,7 @@ export const RecordsTable = ({
   const currentYear = new Date().getFullYear();
 
   const [open, setOpen] = useState(false);
+  const [selectedEntry, setSelectedEntry] = useState<Entries | null>(null);
 
   return (
     <TableContainer>
@@ -113,15 +114,24 @@ export const RecordsTable = ({
         </SelectDateContainer>
 
         <Modal
-          setOpen={setOpen}
+          setOpen={(value) => {
+            setOpen(value);
+            if (!value) setSelectedEntry(null);
+          }}
           open={open}
           onUpdate={handleUpdateEntries}
           onCreate={handleCreateEntries}
           submit={fetchData}
-          triggerLabel="+ Novo Registro"
+          entryToEdit={selectedEntry}
+        />
+        <AddButton
+          onClick={() => {
+            setOpen(true);
+            setSelectedEntry(null);
+          }}
         >
-          <AddButton onClick={() => setOpen(true)}>+ Novo Registro</AddButton>
-        </Modal>
+          + Novo Registro
+        </AddButton>
       </DateBtnContainer>
 
       {entries.length === 0 ? (
@@ -153,7 +163,13 @@ export const RecordsTable = ({
 
                   <Td>{typeOfEntry(entry.type)}</Td>
                   <Td>
-                    <EditIcon onClick={() => handleUpdateEntries(entry)} />
+                    <EditIcon
+                      onClick={() => {
+                        setSelectedEntry(entry);
+                        setOpen(true);
+                      }}
+                    />
+
                     <DeleteIcon />
                   </Td>
                 </Tr>

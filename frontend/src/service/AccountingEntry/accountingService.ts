@@ -75,6 +75,8 @@ export const updateRecord = async ({ id, date, description, value, type }: Updat
                 if (resp.status === 401) {
                     return false
                 }
+
+                console.log(resp.data);
                 return resp.data;
             });
 

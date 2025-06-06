@@ -10,7 +10,6 @@ import {
 import { Input } from "../Input/Input";
 import { FormEvent, useEffect, useState } from "react";
 import { Button } from "../Button/Button";
-// import { handleNewEntry } from "../../service/AccountingEntry/accountingService";
 import { IoIosClose } from "react-icons/io";
 import { typeOfEntry } from "../../utils/typeOfEntry";
 import { CreateEntry, UpdateEntry } from "../../domain/types/entries";
@@ -19,9 +18,7 @@ interface ModalProps {
   submit: () => void;
   onCreate: (data: CreateEntry) => Promise<void>;
   onUpdate: (data: UpdateEntry) => Promise<void>;
-  triggerLabel: string;
   entryToEdit?: UpdateEntry | null;
-  children?: React.ReactNode;
   open: boolean;
   setOpen: (value: boolean) => void;
 }
@@ -31,27 +28,24 @@ export const Modal = ({
   entryToEdit,
   onCreate,
   onUpdate,
-  children,
   open,
   setOpen,
 }: ModalProps) => {
-  useEffect(() => {
-    if (entryToEdit) {
-      setDescription(entryToEdit.description);
-      setDate(entryToEdit.date);
-      setValue(entryToEdit.value);
-      setValueString(`R$ ${entryToEdit.value.toFixed(2)}`);
-      setType(entryToEdit.type);
-      setOpen(true);
-    }
-  }, [entryToEdit]);
-
   const [value, setValue] = useState<number>(0);
   const [valueString, setValueString] = useState<string>("R$0.00");
   const [description, setDescription] = useState<string>("");
   const [date, setDate] = useState<string>("");
   const [type, setType] = useState<"Credit" | "Debit">("Credit");
-  // const [open, setOpen] = useState(false);
+
+  const resetForm = () => {
+    if (!entryToEdit) {
+      setValue(0);
+      setValueString("R$0.00");
+      setType("Credit");
+      setDescription("");
+      setDate("");
+    }
+  };
 
   const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setType(event.target.value === "Crédito" ? "Credit" : "Debit");
@@ -65,15 +59,6 @@ export const Modal = ({
     setValue(parseFloat(numericValue));
     valueInput = `R$ ${numericValue}`;
     return valueInput;
-  };
-
-  const resetForm = () => {
-    setValue(0);
-    setValueString("R$0.00");
-    setType("Credit");
-    setDescription("");
-    setDate("");
-    setType("Credit");
   };
 
   const handleCreate = async () => {
@@ -98,6 +83,24 @@ export const Modal = ({
     setOpen(false);
     submit();
   };
+  useEffect(() => {
+    if (!open) {
+      resetForm();
+      return;
+    }
+    if (entryToEdit && open) {
+      setValue(entryToEdit.value);
+      setValueString(`R$ ${entryToEdit.value.toFixed(2)}`);
+      setDescription(entryToEdit.description);
+      const formattedDate = new Date(entryToEdit.date)
+        .toISOString()
+        .split("T")[0];
+      setDate(formattedDate);
+      setType(entryToEdit.type);
+    } else if (!entryToEdit && open) {
+      resetForm();
+    }
+  }, [entryToEdit, open]);
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
@@ -106,17 +109,16 @@ export const Modal = ({
     } else {
       handleCreate();
     }
+    setOpen(false);
   };
 
   return (
     <>
       <Dialog.Root open={open} onOpenChange={setOpen}>
-        <Dialog.Trigger asChild>{children}</Dialog.Trigger>
-
         <Dialog.Portal>
           <Dialog.Overlay
             style={{
-              backgroundColor: "rgba(0, 0, 0, 0.7)",
+              backgroundColor: "rgba(0, 0, 0, 0.157)",
               position: "fixed",
               inset: 0,
             }}
