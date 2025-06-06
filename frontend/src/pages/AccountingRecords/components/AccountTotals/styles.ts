@@ -1,5 +1,6 @@
 import styled from "styled-components";
-import { TrendingDown, TrendingUp } from "lucide-react";
+import { DollarSign, TrendingDown, TrendingUp } from "lucide-react";
+import theme from "../../../../styles/theme";
 
 export const TotalBoxContainer = styled.div`
     display: grid;
@@ -16,3 +17,8 @@ export const DebitIcon = styled(TrendingDown)`
   width: 50px;
   color: #ff0000; 
 `;
+
+export const DollarIcon = styled(DollarSign)`
+  width: 50px;
+  color: ${theme.COLORS.DARK_PURPLE};
+`

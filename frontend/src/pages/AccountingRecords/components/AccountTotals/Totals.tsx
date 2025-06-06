@@ -1,5 +1,5 @@
 import { TotalBox } from "../../../../components/TotalBox/TotalBox";
-import { CreditIcon, DebitIcon, TotalBoxContainer } from "./styles";
+import { CreditIcon, DebitIcon, DollarIcon, TotalBoxContainer } from "./styles";
 interface AccountTotalsProps {
   totalCredit: number;
   totalDebit: number;
@@ -19,7 +19,9 @@ export const AccountTotals = ({
       <TotalBox title="Débito" total={totalDebit || 0}>
         <DebitIcon />
       </TotalBox>
-      <TotalBox title="Saldo" total={totalBalance || 0}></TotalBox>
+      <TotalBox title="Saldo" total={totalBalance || 0}>
+        <DollarIcon />
+      </TotalBox>
     </TotalBoxContainer>
   );
 };

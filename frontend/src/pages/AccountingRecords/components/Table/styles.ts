@@ -65,12 +65,10 @@ export const Table = styled.table`
 
 `
 
-export const TBody = styled.tbody`
-    
+export const TBody = styled.tbody`   
 `
 
-export const Tr = styled.tr`
-    
+export const Tr = styled.tr` 
 `
 export const Th = styled.th`
     font-weight: 100;
@@ -78,6 +76,7 @@ export const Th = styled.th`
     border-bottom: 1px solid ${theme.COLORS.VERY_LIGHT_GRAY};
     border-top:1px solid ${theme.COLORS.VERY_LIGHT_GRAY} ;
     background-color: #f2f2f2;
+    color: ${theme.COLORS.DARK_PURPLE};
     &:first-child{
         border-top-left-radius: 6px;
         border-bottom-left-radius: 6px;
