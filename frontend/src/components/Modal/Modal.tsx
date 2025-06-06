@@ -21,6 +21,7 @@ interface ModalProps {
   entryToEdit?: UpdateEntry | null;
   open: boolean;
   setOpen: (value: boolean) => void;
+  modalTitle: string;
 }
 
 export const Modal = ({
@@ -30,6 +31,7 @@ export const Modal = ({
   onUpdate,
   open,
   setOpen,
+  modalTitle,
 }: ModalProps) => {
   const [value, setValue] = useState<number>(0);
   const [valueString, setValueString] = useState<string>("R$0.00");
@@ -125,7 +127,7 @@ export const Modal = ({
           />
           <Content>
             <Dialog.Title style={{ textAlign: "center" }}>
-              Nova transação
+              {modalTitle}
             </Dialog.Title>
 
             <CloseButton onClick={() => setOpen(false)}>

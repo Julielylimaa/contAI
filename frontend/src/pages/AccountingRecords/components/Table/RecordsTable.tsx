@@ -20,7 +20,7 @@ import {
 } from "./styles";
 
 import { TotalBox } from "../../../../components/TotalBox/TotalBox";
-import { Modal } from "../../../../components/AddRecordModal/Modal";
+import { Modal } from "../../../../components/Modal/Modal";
 import { DateSelect } from "../../../../components/DateSelect/DateSelect";
 import { Pagination } from "../../../../components/Pagination/Pagination";
 import {
@@ -74,6 +74,7 @@ export const RecordsTable = ({
 
   const [open, setOpen] = useState(false);
   const [selectedEntry, setSelectedEntry] = useState<Entries | null>(null);
+  const [modalTitle, setModalTitle] = useState("Novo Registro");
 
   return (
     <TableContainer>
@@ -125,11 +126,13 @@ export const RecordsTable = ({
           onCreate={handleCreateEntries}
           submit={fetchData}
           entryToEdit={selectedEntry}
+          modalTitle={modalTitle}
         />
         <AddButton
           onClick={() => {
             setOpen(true);
             setSelectedEntry(null);
+            setModalTitle("Novo Registro");
           }}
         >
           + Novo Registro
@@ -169,6 +172,7 @@ export const RecordsTable = ({
                       onClick={() => {
                         setSelectedEntry(entry);
                         setOpen(true);
+                        setModalTitle("Editar Registro");
                       }}
                     />
 
