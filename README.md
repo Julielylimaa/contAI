@@ -1,15 +1,23 @@
 # Projeto Scoder
 
 - **Back-end**: Node.js, Express e Prisma ORM.
-- **Front-end**: React.
+- **Front-end**: React, Styled Components.
 
 # Descrição do projeto
 
-Este projeto foi desenvolvido para uma **empresa de contabilidade** e tem como principal objetivo gerenciar lançamentos de transações financeiras de **crédito e débito**.
+Este projeto foi desenvolvido para a empresa **ContAI** e tem como principal objetivo otimizar o processo de registro e visualização de **lançamentos contábeis**. A plataforma é capaz de cadastrar os lançamentos financeiros e exibir esses registros em uma tabela organizada por mês, permitindo uma gestão mais eficiente e organizada das finanças da empresa.
+
+### Acesso à aplicação
+
+🔗 https://contai-1.onrender.com/
 
 ### Funcionalidades Principais
 
+- **Cadastro de Usuário**: Permite cadastrar novos usuários para acessar a plataforma.
+- **Login com JWT**: Permite que o usuário acesse a plataforma de maneira segura, para garantir a confidencialidade das informações.
 - **Lançamento de Transações**: Permite registrar transações financeiras classificadas como crédito ou débito.
+- **Edição de Transações**: Permite editar transações financeiras já cadastradas anteriormente.
+- **Exclusão de Transações**: Permite excluir registros cadastrados anteriormente, caso necessário.
 - **Cálculo de Totais**: Exibe o total de créditos e o total de débitos para fácil acompanhamento.
 - **Organização por Mês e Ano**: Fornece uma lista das transações ordenada pelo mês e ano, facilitando a visualização e análise dos dados financeiros ao longo do tempo.
 
@@ -17,7 +25,7 @@ Este projeto foi desenvolvido para uma **empresa de contabilidade** e tem como p
 
 Certifique-se de ter as seguintes ferramentas instaladas:
 
-- **Node.js**
+- **Node.js v22**
 - **Docker**
 
 ## Instruções de Instalação
@@ -41,7 +49,7 @@ Certifique-se de ter as seguintes ferramentas instaladas:
 4. **Execute o Docker Compose**
 
    ```bash
-   docker-compose up -d
+   docker compose up -d
    ```
 
 5. **Execute as migrações do Prisma:**
@@ -66,10 +74,10 @@ Certifique-se de ter as seguintes ferramentas instaladas:
    npm install
    ```
 3. **Crie um arquivo .env**
-   
+
    Crie um arquivo .env na pasta do front-end com a url da api. Veja o arquivo .env-example para referência.
-   
-5. **Inicie o front-end em modo de desenvolvimento:**
+
+4. **Inicie o front-end em modo de desenvolvimento:**
    ```bash
    npm run dev
    ```
