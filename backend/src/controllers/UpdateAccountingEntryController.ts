@@ -26,6 +26,7 @@ export class UpdateAccountingEntryController {
             type
         });
 
+
         return response.json(updatedEntry);
     }
 }

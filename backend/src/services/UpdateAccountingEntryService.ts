@@ -37,6 +37,6 @@ export class UpdateAccountingEntryService {
             }
         });
 
-        return updatedEntry;
+        return { message: "Accounting entry updated successfully." };
     }
 }   
