@@ -104,7 +104,20 @@ export const Th = styled.th`
     }
     `
 
+export const AddButton = styled.button`
+    background-color: ${theme.COLORS.PURPLE};
+    border: 1px solid transparent;
+    color: ${theme.COLORS.WHITE};
+    padding: 1rem;
+    font-size: 14px;
+    font-weight: 200;
+    border-radius: 5px;
+    cursor: pointer;
 
+    &:hover{
+        background-color: ${theme.COLORS.LIGHT_PURPLE};
+    }
+`
 
 
 export const Td = styled.td`

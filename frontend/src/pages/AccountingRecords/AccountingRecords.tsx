@@ -4,10 +4,11 @@ import { RecordsTable } from "./components/Table/RecordsTable";
 import { Container } from "./styles";
 import {
   getAccountingRecords,
+  handleNewEntry,
   updateRecord,
 } from "../../service/AccountingEntry/accountingService";
 import { months } from "../../domain/constants/months";
-import { Entries } from "../../domain/types/entries";
+import { CreateEntry, Entries, UpdateEntry } from "../../domain/types/entries";
 
 export const AccountingRecords = () => {
   const currentYear = new Date().getFullYear();
@@ -49,7 +50,7 @@ export const AccountingRecords = () => {
     }
   };
 
-  const handleUpdateEntries = async (entry: Entries) => {
+  const handleUpdateEntries = async (entry: UpdateEntry) => {
     try {
       const updateEntry = await updateRecord(entry);
       if (updateEntry) {
@@ -57,6 +58,22 @@ export const AccountingRecords = () => {
       }
     } catch (error) {
       console.error("Erro ao atualizar entrada:", error);
+    }
+  };
+
+  const handleCreateEntries = async (data: CreateEntry) => {
+    try {
+      const response = await handleNewEntry(
+        data.date,
+        data.description,
+        data.value,
+        data.type
+      );
+      if (response) {
+        fetchData();
+      }
+    } catch (error) {
+      console.error("Erro ao criar nova entrada:", error);
     }
   };
 
@@ -82,6 +99,7 @@ export const AccountingRecords = () => {
         setCurrentPage={setCurrentPage}
         fetchData={fetchData}
         handleUpdateEntries={handleUpdateEntries}
+        handleCreateEntries={handleCreateEntries}
       />
     </Container>
   );

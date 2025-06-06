@@ -6,14 +6,13 @@ import { formatDate } from "../utils/DateFormat";
 
 interface IAccountingEntry {
     date: Date,
-    userId: string,
     description: string,
     value: number,
     type: AccountingEntryType
 }
 
 export class UpdateAccountingEntryService {
-    async execute(id: string, { date, userId, description, value, type }: IAccountingEntry) {
+    async execute(id: string, { date, description, value, type }: IAccountingEntry) {
         if (!id) {
             throw new Error("ID is required.");
         }
@@ -32,7 +31,6 @@ export class UpdateAccountingEntryService {
             where: { id },
             data: {
                 date: formattedDate,
-                userId,
                 description,
                 value,
                 type

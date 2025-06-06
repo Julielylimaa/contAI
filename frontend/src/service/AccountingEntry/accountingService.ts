@@ -1,4 +1,4 @@
-import { Entries } from "../../domain/types/entries";
+import { Entries, UpdateEntry } from "../../domain/types/entries";
 import { api } from "../axios";
 
 
@@ -40,7 +40,7 @@ export const getAccountingRecords = async (date: string,
 
 export const handleNewEntry = async (date: string, description: string, value: number, type: "Credit" | "Debit") => {
     try {
-        await api
+        const resp = await api
             .post("accounting", {
                 date,
                 description,
@@ -51,8 +51,9 @@ export const handleNewEntry = async (date: string, description: string, value: n
                 if (resp.status === 401) {
                     return false
                 }
-
+                return resp.data;
             });
+        return resp;
     } catch (err) {
         alert("Ocorreu um erro!")
         console.log(err);
@@ -61,7 +62,7 @@ export const handleNewEntry = async (date: string, description: string, value: n
 }
 
 
-export const updateRecord = async ({ id, date, description, value, type }: Entries) => {
+export const updateRecord = async ({ id, date, description, value, type }: UpdateEntry) => {
     try {
         const resp = await api
             .put(`accounting/${id}`, {

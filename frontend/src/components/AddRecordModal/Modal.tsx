@@ -1,6 +1,5 @@
 import * as Dialog from "@radix-ui/react-dialog";
 import {
-  AddButton,
   CloseButton,
   Content,
   Form,
@@ -9,19 +8,50 @@ import {
   SelectTypeContainer,
 } from "./styles";
 import { Input } from "../Input/Input";
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { Button } from "../Button/Button";
-import { handleNewEntry } from "../../service/AccountingEntry/accountingService";
+// import { handleNewEntry } from "../../service/AccountingEntry/accountingService";
 import { IoIosClose } from "react-icons/io";
 import { typeOfEntry } from "../../utils/typeOfEntry";
+import { CreateEntry, UpdateEntry } from "../../domain/types/entries";
 
-export const Modal = ({ submit }: { submit: () => void }) => {
+interface ModalProps {
+  submit: () => void;
+  onCreate: (data: CreateEntry) => Promise<void>;
+  onUpdate: (data: UpdateEntry) => Promise<void>;
+  triggerLabel: string;
+  entryToEdit?: UpdateEntry | null;
+  children?: React.ReactNode;
+  open: boolean;
+  setOpen: (value: boolean) => void;
+}
+
+export const Modal = ({
+  submit,
+  entryToEdit,
+  onCreate,
+  onUpdate,
+  children,
+  open,
+  setOpen,
+}: ModalProps) => {
+  useEffect(() => {
+    if (entryToEdit) {
+      setDescription(entryToEdit.description);
+      setDate(entryToEdit.date);
+      setValue(entryToEdit.value);
+      setValueString(`R$ ${entryToEdit.value.toFixed(2)}`);
+      setType(entryToEdit.type);
+      setOpen(true);
+    }
+  }, [entryToEdit]);
+
   const [value, setValue] = useState<number>(0);
   const [valueString, setValueString] = useState<string>("R$0.00");
   const [description, setDescription] = useState<string>("");
   const [date, setDate] = useState<string>("");
   const [type, setType] = useState<"Credit" | "Debit">("Credit");
-  const [open, setOpen] = useState(false);
+  // const [open, setOpen] = useState(false);
 
   const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setType(event.target.value === "Crédito" ? "Credit" : "Debit");
@@ -46,20 +76,42 @@ export const Modal = ({ submit }: { submit: () => void }) => {
     setType("Credit");
   };
 
-  const handleSubmit = async (event: FormEvent) => {
-    event.preventDefault();
-    await handleNewEntry(date, description, value, type);
+  const handleCreate = async () => {
+    await onCreate({ date, description, value, type });
     resetForm();
     setOpen(false);
     submit();
   };
 
+  const handleUpdate = async () => {
+    if (!entryToEdit) return;
+
+    await onUpdate({
+      id: entryToEdit.id,
+      date,
+      description,
+      value,
+      type,
+    });
+
+    resetForm();
+    setOpen(false);
+    submit();
+  };
+
+  const handleSubmit = (event: FormEvent) => {
+    event.preventDefault();
+    if (entryToEdit) {
+      handleUpdate();
+    } else {
+      handleCreate();
+    }
+  };
+
   return (
     <>
       <Dialog.Root open={open} onOpenChange={setOpen}>
-        <Dialog.Trigger asChild>
-          <AddButton onClick={() => setOpen(true)}>+ Novo Registro</AddButton>
-        </Dialog.Trigger>
+        <Dialog.Trigger asChild>{children}</Dialog.Trigger>
 
         <Dialog.Portal>
           <Dialog.Overlay
@@ -74,7 +126,7 @@ export const Modal = ({ submit }: { submit: () => void }) => {
               Nova transação
             </Dialog.Title>
 
-            <CloseButton>
+            <CloseButton onClick={() => setOpen(false)}>
               <IoIosClose size={30} />
             </CloseButton>
 
@@ -126,9 +178,8 @@ export const Modal = ({ submit }: { submit: () => void }) => {
                 }}
               />
 
-              <Button text="Adicionar" />
+              <Button text={entryToEdit ? "Editar" : "Adicionar"} />
             </Form>
-            <Dialog.Description></Dialog.Description>
           </Content>
         </Dialog.Portal>
       </Dialog.Root>

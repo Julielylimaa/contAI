@@ -16,16 +16,22 @@ import {
   DebitIcon,
   EditIcon,
   DeleteIcon,
+  AddButton,
 } from "./styles";
 
 import { TotalBox } from "../../../../components/TotalBox/TotalBox";
 import { Modal } from "../../../../components/AddRecordModal/Modal";
 import { DateSelect } from "../../../../components/DateSelect/DateSelect";
 import { Pagination } from "../../../../components/Pagination/Pagination";
-import { Entries } from "../../../../domain/types/entries";
+import {
+  Entries,
+  CreateEntry,
+  UpdateEntry,
+} from "../../../../domain/types/entries";
 import { months } from "../../../../domain/constants/months";
 import { formatDate } from "../../../../utils/formatDate";
 import { typeOfEntry } from "../../../../utils/typeOfEntry";
+import { useState } from "react";
 
 interface RecordTableProps {
   entries: Entries[];
@@ -41,7 +47,8 @@ interface RecordTableProps {
   setYear: (year: number) => void;
   setCurrentPage: (page: number) => void;
   fetchData: () => void;
-  handleUpdateEntries: (entry: Entries) => Promise<void>;
+  handleUpdateEntries: (entry: UpdateEntry) => Promise<void>;
+  handleCreateEntries: (data: CreateEntry) => Promise<void>;
 }
 
 export const RecordsTable = ({
@@ -59,8 +66,11 @@ export const RecordsTable = ({
   setCurrentPage,
   fetchData,
   handleUpdateEntries,
+  handleCreateEntries,
 }: RecordTableProps) => {
   const currentYear = new Date().getFullYear();
+
+  const [open, setOpen] = useState(false);
 
   return (
     <TableContainer>
@@ -101,7 +111,17 @@ export const RecordsTable = ({
             ))}
           </DateSelect>
         </SelectDateContainer>
-        <Modal submit={fetchData} />
+
+        <Modal
+          setOpen={setOpen}
+          open={open}
+          onUpdate={handleUpdateEntries}
+          onCreate={handleCreateEntries}
+          submit={fetchData}
+          triggerLabel="+ Novo Registro"
+        >
+          <AddButton onClick={() => setOpen(true)}>+ Novo Registro</AddButton>
+        </Modal>
       </DateBtnContainer>
 
       {entries.length === 0 ? (
