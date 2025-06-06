@@ -2,8 +2,10 @@ import { useEffect, useState } from "react";
 import { Header } from "./components/Header/Header";
 import { RecordsTable } from "./components/Table/RecordsTable";
 import { Container } from "./styles";
-import { getAccountingRecords } from "../../service/AccountingEntry/accountingService";
-
+import {
+  getAccountingRecords,
+  updateRecord,
+} from "../../service/AccountingEntry/accountingService";
 import { months } from "../../domain/constants/months";
 import { Entries } from "../../domain/types/entries";
 
@@ -47,6 +49,17 @@ export const AccountingRecords = () => {
     }
   };
 
+  const handleUpdateEntries = async (entry: Entries) => {
+    try {
+      const updateEntry = await updateRecord(entry);
+      if (updateEntry) {
+        fetchData();
+      }
+    } catch (error) {
+      console.error("Erro ao atualizar entrada:", error);
+    }
+  };
+
   useEffect(() => {
     fetchData();
   }, [month, year, currentPage]);
@@ -68,6 +81,7 @@ export const AccountingRecords = () => {
         setYear={setYear}
         setCurrentPage={setCurrentPage}
         fetchData={fetchData}
+        handleUpdateEntries={handleUpdateEntries}
       />
     </Container>
   );

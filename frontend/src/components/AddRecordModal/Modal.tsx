@@ -13,21 +13,18 @@ import { FormEvent, useState } from "react";
 import { Button } from "../Button/Button";
 import { handleNewEntry } from "../../service/AccountingEntry/accountingService";
 import { IoIosClose } from "react-icons/io";
+import { typeOfEntry } from "../../utils/typeOfEntry";
 
 export const Modal = ({ submit }: { submit: () => void }) => {
   const [value, setValue] = useState<number>(0);
   const [valueString, setValueString] = useState<string>("R$0.00");
-  const [typeSelect, setTypeSelect] = useState<"Crédito" | "Débito">("Crédito");
   const [description, setDescription] = useState<string>("");
   const [date, setDate] = useState<string>("");
   const [type, setType] = useState<"Credit" | "Debit">("Credit");
   const [open, setOpen] = useState(false);
 
   const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const selectedType = event.target.value as "Crédito" | "Débito";
-    const result = selectedType === "Crédito" ? "Credit" : "Debit";
-    setTypeSelect(selectedType);
-    setType(result);
+    setType(event.target.value === "Crédito" ? "Credit" : "Debit");
   };
 
   const maskCurrency = (valueInput: string) => {
@@ -43,7 +40,7 @@ export const Modal = ({ submit }: { submit: () => void }) => {
   const resetForm = () => {
     setValue(0);
     setValueString("R$0.00");
-    setTypeSelect("Crédito");
+    setType("Credit");
     setDescription("");
     setDate("");
     setType("Credit");
@@ -56,6 +53,7 @@ export const Modal = ({ submit }: { submit: () => void }) => {
     setOpen(false);
     submit();
   };
+
   return (
     <>
       <Dialog.Root open={open} onOpenChange={setOpen}>
@@ -108,7 +106,7 @@ export const Modal = ({ submit }: { submit: () => void }) => {
                 <Label htmlFor="type">Tipo</Label>
                 <SelectType
                   id="type"
-                  value={typeSelect}
+                  value={typeOfEntry(type)}
                   onChange={handleSelectChange}
                 >
                   <option>Crédito</option>

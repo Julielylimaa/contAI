@@ -25,6 +25,7 @@ import { Pagination } from "../../../../components/Pagination/Pagination";
 import { Entries } from "../../../../domain/types/entries";
 import { months } from "../../../../domain/constants/months";
 import { formatDate } from "../../../../utils/formatDate";
+import { typeOfEntry } from "../../../../utils/typeOfEntry";
 
 interface RecordTableProps {
   entries: Entries[];
@@ -40,6 +41,7 @@ interface RecordTableProps {
   setYear: (year: number) => void;
   setCurrentPage: (page: number) => void;
   fetchData: () => void;
+  handleUpdateEntries: (entry: Entries) => Promise<void>;
 }
 
 export const RecordsTable = ({
@@ -56,16 +58,9 @@ export const RecordsTable = ({
   setYear,
   setCurrentPage,
   fetchData,
+  handleUpdateEntries,
 }: RecordTableProps) => {
   const currentYear = new Date().getFullYear();
-
-  const typeOfEntry = (type: string) => {
-    if (type === "Credit") {
-      return "Crédito";
-    } else if (type === "Debit") {
-      return "Débito";
-    }
-  };
 
   return (
     <TableContainer>
@@ -138,7 +133,7 @@ export const RecordsTable = ({
 
                   <Td>{typeOfEntry(entry.type)}</Td>
                   <Td>
-                    <EditIcon />
+                    <EditIcon onClick={() => handleUpdateEntries(entry)} />
                     <DeleteIcon />
                   </Td>
                 </Tr>

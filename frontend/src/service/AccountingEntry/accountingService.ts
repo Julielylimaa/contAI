@@ -56,8 +56,31 @@ export const handleNewEntry = async (date: string, description: string, value: n
     } catch (err) {
         alert("Ocorreu um erro!")
         console.log(err);
+
     }
 }
 
 
-// export const updateRecord = async()
+export const updateRecord = async ({ id, date, description, value, type }: Entries) => {
+    try {
+        const resp = await api
+            .put(`accounting/${id}`, {
+                date,
+                description,
+                value,
+                type,
+            })
+            .then((resp) => {
+                if (resp.status === 401) {
+                    return false
+                }
+                return resp.data;
+            });
+
+        return resp;
+    } catch (err) {
+        alert("Ocorreu um erro!")
+        console.log(err);
+
+    }
+}
