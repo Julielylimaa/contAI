@@ -1,27 +1,12 @@
 import styled from "styled-components";
 import theme from "../../../../styles/theme";
-import { Pencil, Trash2, TrendingDown, TrendingUp } from "lucide-react";
+import { Pencil, Trash2 } from "lucide-react";
 
 export const TableContainer = styled.div`
     width: 70%;
     margin: 4rem auto 0;
     padding-top: 5rem;
 `
-export const TotalBoxContainer = styled.div`
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 1.5rem;
-    margin-bottom: 2rem; 
-`
-
-export const CreditIcon = styled(TrendingUp)`
-  width: 50px;
-  color: #22c55e; 
-`;
-export const DebitIcon = styled(TrendingDown)`
-  width: 50px;
-  color: #ff0000; 
-`;
 
 export const EditIcon = styled(Pencil)`
   width: 15px;
@@ -47,6 +32,7 @@ export const DateBtnContainer = styled.div`
     display: flex;
     justify-content: space-between;
     width: 100%;
+    min-width: 400px;
 `
 
 

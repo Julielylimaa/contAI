@@ -1,6 +1,5 @@
 import {
   TableContainer,
-  CreditIcon,
   DateBtnContainer,
   Message,
   MessageContainer,
@@ -10,16 +9,13 @@ import {
   Td,
   Th,
   THead,
-  TotalBoxContainer,
   Tr,
   ValueHighLight,
-  DebitIcon,
   EditIcon,
   DeleteIcon,
   AddButton,
 } from "./styles";
 
-import { TotalBox } from "../../../../components/TotalBox/TotalBox";
 import { Modal } from "../../../../components/Modal/Modal";
 import { DateSelect } from "../../../../components/DateSelect/DateSelect";
 import { Pagination } from "../../../../components/Pagination/Pagination";
@@ -32,6 +28,7 @@ import { months } from "../../../../domain/constants/months";
 import { formatDate } from "../../../../utils/formatDate";
 import { typeOfEntry } from "../../../../utils/typeOfEntry";
 import { useState } from "react";
+import { AccountTotals } from "../AccountTotals/Totals";
 
 interface RecordTableProps {
   entries: Entries[];
@@ -78,16 +75,11 @@ export const RecordsTable = ({
 
   return (
     <TableContainer>
-      <TotalBoxContainer>
-        <TotalBox title="Crédito" total={totalCredit || 0}>
-          <CreditIcon />
-        </TotalBox>
-        <TotalBox title="Débito" total={totalDebit || 0}>
-          <DebitIcon />
-        </TotalBox>
-        <TotalBox title="Saldo" total={totalBalance || 0}></TotalBox>
-      </TotalBoxContainer>
-
+      <AccountTotals
+        totalCredit={totalCredit}
+        totalDebit={totalDebit}
+        totalBalance={totalBalance}
+      />
       <DateBtnContainer>
         <SelectDateContainer>
           <DateSelect
