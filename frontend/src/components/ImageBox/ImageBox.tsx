@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import loginImage from "/login.jpeg";
+import loginImage from "/login.jpg";
 import { Container, Forms, ImageContainer } from "./styles";
 
 interface BoxProps {
