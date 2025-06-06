@@ -87,3 +87,22 @@ export const updateRecord = async ({ id, date, description, value, type }: Updat
 
     }
 }
+
+export const deleteRecord = async (id: string) => {
+    try {
+        const resp = await api
+            .delete(`accounting/${id}`)
+            .then((resp) => {
+                if (resp.status === 401) {
+                    return false
+                }
+                return resp.data;
+            });
+        alert("Registro deletado com sucesso!")
+        return resp;
+    } catch (err) {
+        alert("Ocorreu um erro!")
+        console.log(err);
+
+    }
+}

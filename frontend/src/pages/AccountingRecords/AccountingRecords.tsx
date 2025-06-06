@@ -3,6 +3,7 @@ import { Header } from "./components/Header/Header";
 import { RecordsTable } from "./components/Table/RecordsTable";
 import { Container } from "./styles";
 import {
+  deleteRecord,
   getAccountingRecords,
   handleNewEntry,
   updateRecord,
@@ -77,6 +78,22 @@ export const AccountingRecords = () => {
     }
   };
 
+  const handleDeleteEntries = async (id: string) => {
+    const confirmDelete = confirm(
+      "Você tem certeza que deseja deletar essa entrada?"
+    );
+    if (!confirmDelete) return;
+
+    try {
+      const response = await deleteRecord(id);
+      if (response) {
+        fetchData();
+      }
+    } catch (error) {
+      console.error("Erro ao deletar entrada:", error);
+    }
+  };
+
   useEffect(() => {
     fetchData();
   }, [month, year, currentPage]);
@@ -100,6 +117,7 @@ export const AccountingRecords = () => {
         fetchData={fetchData}
         handleUpdateEntries={handleUpdateEntries}
         handleCreateEntries={handleCreateEntries}
+        handleDeleteEntries={handleDeleteEntries}
       />
     </Container>
   );

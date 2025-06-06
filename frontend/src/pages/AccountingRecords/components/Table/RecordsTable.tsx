@@ -49,6 +49,7 @@ interface RecordTableProps {
   fetchData: () => void;
   handleUpdateEntries: (entry: UpdateEntry) => Promise<void>;
   handleCreateEntries: (data: CreateEntry) => Promise<void>;
+  handleDeleteEntries: (id: string) => Promise<void>;
 }
 
 export const RecordsTable = ({
@@ -67,6 +68,7 @@ export const RecordsTable = ({
   fetchData,
   handleUpdateEntries,
   handleCreateEntries,
+  handleDeleteEntries,
 }: RecordTableProps) => {
   const currentYear = new Date().getFullYear();
 
@@ -170,7 +172,7 @@ export const RecordsTable = ({
                       }}
                     />
 
-                    <DeleteIcon />
+                    <DeleteIcon onClick={() => handleDeleteEntries(entry.id)} />
                   </Td>
                 </Tr>
               ))}
